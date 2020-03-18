@@ -1,0 +1,102 @@
+@extends('layouts.app')
+
+@section('page-title')
+   <title>Posts</title>
+@endsection
+
+@section('pre-scripts')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+@endsection
+
+@section('content')
+<div class="container">
+
+{{-- Mensagens de validação --}}
+@if(session()->has('post-success'))
+    <div class="alert alert-success sm" role="alert">
+        Post criado com sucesso!
+    </div>
+@endif
+@if(session()->has('delete-success'))
+    <div class="alert alert-success sm" role="alert">
+        Post deletado com sucesso!
+    </div>
+@elseif(session()->has('unauthorized'))
+    <div class="alert alert-fail sm" role="alert">
+        Seu usuário não é autorizado...
+    </div>
+@endif
+<div class="topo">
+    <h2 class="top-label">Posts</h2>
+    <input type="text" name="search" id="search_text" class="form-control col-sm-4" placeholder="Search posts..."> 
+    <button type="button" class="btn btn-primary btn-success">
+        <a href="{{route('post.create')}}">
+            <i class="far fa-plus-square"></i>
+            <strong>Novo Post</strong>
+        </a>
+    </button>
+    <a id="feed" onclick="updateFeed()">Atualizar FEED
+        <i class="fas fa-sync-alt"></i>
+    </a>
+     
+</div>
+  
+@foreach ($posts as $post)
+    <div class="post">
+        <div class="post-body">
+            <div class="interaction">
+                <h5 class="post-title">
+                    {{$post->title}}
+                </h5>
+            @can('delete', $post)
+                <form action="{{route('post.destroy', $post->id)}}" method="POST">
+                    @csrf
+                    {{method_field('DELETE')}}
+                    <button type="submit" onclick="return confirm('Confirma a exclusão?')">
+                        <i class="far fa-times-circle"></i>   
+                    </button>                
+                </form>                  
+            @endcan
+            </div>            
+            <h6 class="card-subtitle mb-2 text-muted">
+                @php 
+                    $user = App\User::find(($post->user_id));
+                @endphp
+                <i>{{ $user->name }}</i>            
+            </h6>
+            <p class="card-text">
+                {{substr($post->description, 0 , 200) . '...'}}
+            </p>
+            <div class="interaction">            
+                <a href="http://localhost:8000/post/{{$post->id}}" class="btn btn-primary">
+                    View Post
+                </a> 
+                <span> 
+                    <i class="far fa-comments icon"></i><b>{{ count($post->comments) }}</b>           
+                    <i class="far fa-eye icon"></i><b>{{ $post->views }}</b>
+                </span>               
+            </div>
+        </div>
+    </div>    
+@endforeach
+
+@endsection
+@section('post-scripts')
+
+{{-- <script>
+    var feed = document.getElementById("feed");
+    console.log(feed);
+
+    function updateFeed(){
+        axios.get('http://localhost:8000/post',{})
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+</script> --}}
+
+
+@endsection
