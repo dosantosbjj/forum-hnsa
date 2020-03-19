@@ -7,6 +7,7 @@ use App\Http\Requests\PostsRequest;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -98,7 +99,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -108,9 +110,41 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostsRequest $request, $id)
     {
-        //
+        $post = Post::findOrfail($id);
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->user_id = Auth::user()->id;
+        $post->views = $request->views;
+        $post->post_date = now();
+
+        if($request->hasFile('post_image')){
+            $name = uniqid(date('HisdmY'));
+            $extension = $request->post_image->extension();
+            $nameFile = "{$name}.{$extension}";
+            $upload = $request->post_image->storeAs('public', $nameFile);
+            $post->post_image = $nameFile;  
+            if(!$upload){
+                return redirect()
+                        ->back()
+                        ->with('upload-error', 'Falha ao fazer upload...')
+                        ->withInput();
+            }
+        }        
+    
+        if($post->update()){
+            session()->flash('edit-success', 'Post edited.');
+            return redirect()->route('post.index');
+            Log::info('O usuário: ' . Auth::user()->name  . ' editou o post' .  $post->id . '.');
+        }else{
+            session()->flash('edit-error', 'Oops, error editing post.');
+            return redirect()->route('post.edit')->withInput(
+                $request->title,
+                $request->description,
+                $request->post_image
+            );            
+        }        
     }
 
     /**

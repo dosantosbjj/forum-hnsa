@@ -26,9 +26,20 @@
         Seu usuário não é autorizado...
     </div>
 @endif
+@if(session()->has('edit-success'))
+    <div class="alert alert-success sm" role="alert">
+        Post editado com sucesso!
+    </div>
+@endif
+@if(session()->has('edit-error'))
+    <div class="alert alert-fail sm" role="alert">
+        Post editado com sucesso!
+    </div>
+@endif
+
 <div class="topo">
     <h2 class="top-label">Posts</h2>
-    <input type="text" name="search" id="search_text" class="form-control col-sm-4" placeholder="Search posts..."> 
+    <input type="text" name="search" id="search_text" onchange="searchPosts()" class="form-control col-sm-4" placeholder="Search posts..."> 
     <button type="button" class="btn btn-primary btn-success">
         <a href="{{route('post.create')}}">
             <i class="far fa-plus-square"></i>
@@ -37,10 +48,10 @@
     </button>
     <a id="feed" onclick="updateFeed()">Atualizar FEED
         <i class="fas fa-sync-alt"></i>
-    </a>
-     
+    </a>     
 </div>
-  
+
+<div class="postagens" id="postagens">
 @foreach ($posts as $post)
     <div class="post">
         <div class="post-body">
@@ -79,24 +90,25 @@
         </div>
     </div>    
 @endforeach
+</div>
 
 @endsection
 @section('post-scripts')
 
-{{-- <script>
-    var feed = document.getElementById("feed");
-    console.log(feed);
+ <script>
 
     function updateFeed(){
-        axios.get('http://localhost:8000/post',{})
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        location.reload(true);
     }
-</script> --}}
+
+    function searchPosts(){
+        var searchText = document.getElementById("search_text");
+        console.log(searchText.value);
+    }
+
+
+
+</script> 
 
 
 @endsection

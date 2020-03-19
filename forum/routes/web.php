@@ -9,3 +9,4 @@ Route::get('/', function () {
 Route::resource('post', 'PostController');
 Route::resource('comments','CommentsController');
 Route::resource('user','UserController');
+
