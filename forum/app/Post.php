@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    // private $tablename = "Post";
+
+    protected $dates = [
+        'post_date',
+        'updated_at',
+    ];
+
     public $timestamps = false;
 
     public function comments(){

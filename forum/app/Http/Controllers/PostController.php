@@ -8,6 +8,9 @@ use App\Post;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use DateTime;
+use DateTimeZone;
+
 
 class PostController extends Controller
 {
@@ -44,12 +47,11 @@ class PostController extends Controller
      */
     public function store(PostsRequest $request)
     {
-        $carbon = new Carbon;
-        $carbon->setLocale('pt_BR');
+        
         $post = new Post;
         $post->title = $request->title;
         $post->description = $request->description;
-        $post->post_date = $carbon->now();
+        $post->post_date = \Carbon\Carbon::now('America/Sao_Paulo');
         $post->user_id = Auth::user()->id;
         $post->views = 0;
         if($request->hasFile('post_image')){

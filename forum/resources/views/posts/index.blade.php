@@ -38,19 +38,22 @@
 @endif
 
 <div class="topo">
-    <h2 class="top-label">Posts</h2>
-    <input type="text" name="search" id="search_text" onchange="searchPosts()" class="form-control col-sm-4" placeholder="Search posts..."> 
     <button type="button" class="btn btn-primary btn-success">
         <a href="{{route('post.create')}}">
             <i class="far fa-plus-square"></i>
             <strong>Novo Post</strong>
         </a>
     </button>
+    <input type="text" name="search" id="search_text" onchange="searchPosts()" class="form-control col-sm-4" placeholder="Search posts..."> 
+    
     <a id="feed" onclick="updateFeed()">Atualizar FEED
         <i class="fas fa-sync-alt"></i>
     </a>     
 </div>
-
+<br>
+<div>
+    <h2 class="top-label">Posts</h2>
+</div>
 <div class="postagens" id="postagens">
 @foreach ($posts as $post)
     <div class="post">
@@ -73,7 +76,12 @@
                 @php 
                     $user = App\User::find(($post->user_id));
                 @endphp
-                <i>{{ $user->name }}</i>            
+                <span class="topo">
+                    <i>{{ $user->name }}</i> 
+                    <strong> em 
+                      {{    $post->post_date->format('d/m/Y')    }} às {{ $post->post_date->format('H:i:s') }}
+                    </strong>        
+                </span>          
             </h6>
             <p class="card-text">
                 {{substr($post->description, 0 , 200) . '...'}}
