@@ -3,14 +3,34 @@
 @section('page-title')
     <title> Criar usuário</title>
 @endsection
-  
+
+@section('pre-scripts')
+
+@endsection
+
 @section('content')
+
+{{-- Erros em sessão --}}
+@if(session()->has('confirmation-fail'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('confirmation-fail') }}
+    </div>
+@elseif(session()->has('upload-error'))
+    <div class="alert alert-danger">
+        {{ session('upload-error')}}
+    </div>
+@elseif(session()->has('user-error'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('user-error') }}
+    </div>
+@endif
+
 <div class="container"> 
     <h3 class="top-label">
         Cadastrar usuário:
     </h3>
     <br>
-    <form action="{{route('register')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('user.store')}}" id="form" method="POST" enctype="multipart/form-data">
     @csrf    
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -25,12 +45,12 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="password"><b>Senha:</b></label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" id="password" class="form-control" name="password">
         </div>    
         <div class="form-group col-md-4">
             <label for="password-confirmation"><b>Confirme a senha:</b></label>
-            <input type="password" class="form-control" name="password-confirmation">
-        </div>    
+            <input type="password" id="confirmation" onchange="check()" class="form-control" name="password-confirmation">                
+        </div>  
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
@@ -54,8 +74,14 @@
             </select>
         </div>
     </div> 
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="user_image"><strong>Profile image:</strong> </label>
+            <input type="file" name="user_image" id="user_image" class="form-control-file form-control-sm">
+        </div>
+    </div>
     <br>
-        <button type="submit" class="btn btn-primary">Cadastrar usuário</button>
+        <button type="submit" id="save" class="btn btn-primary">Cadastrar usuário</button>
     </form>
 </div>
 @endsection

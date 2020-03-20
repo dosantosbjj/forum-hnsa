@@ -162,4 +162,8 @@ footer{
     justify-content: space-between;
 }
 
+.border-red{
+    border-color: red;
+}
+
 

@@ -5,7 +5,10 @@
 @endsection
 
 @section('pre-scripts')
+
+    {{-- scripts --}}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 @endsection
 
 @section('content')
@@ -103,19 +106,18 @@
 @endsection
 @section('post-scripts')
 
- <script>
+<script>
 
+    // Atualizar página
     function updateFeed(){
         location.reload(true);
     }
 
+    // Pesquisa com ajax - será implementado
     function searchPosts(){
         var searchText = document.getElementById("search_text");
         console.log(searchText.value);
     }
-
-
-
 </script> 
 
 

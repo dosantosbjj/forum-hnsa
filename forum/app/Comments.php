@@ -12,4 +12,8 @@ class Comments extends Model
     public function user(){
         return $this->hasOne('App\User');
     }
+
+    public function post(){
+        return $this->belongsTo('App\Post');
+    }
 }

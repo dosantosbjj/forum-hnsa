@@ -14,8 +14,24 @@ class User extends Authenticatable
   
     public function section()
     {
-        return $this->hasOne('App\Section','section_id');
+        return $this->belongsTo('App\Section');
     }
+
+    public function type()
+    {
+        return $this->belongsTo('App\Type');
+    }
+
+    public function post()
+    {
+        return $this->hasMany('App\Post');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany('App\comments');
+    }
+
 
     /**
      * The attributes that are mass assignable.
