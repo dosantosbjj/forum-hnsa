@@ -6,6 +6,7 @@
 
 body{
     color:black;
+    background: #F2F2F2 !important;
 }
 
 body a{
@@ -27,6 +28,8 @@ body a:visited {
     margin: 5px;
     border:2px solid black;
     border-radius: 2px 5px 2px 5px;
+    background: #FFFFFF;
+    
 }
 
 .top-label{
@@ -50,6 +53,28 @@ body a:visited {
   align-self: flex-end;  
   font-size: 28px;
   padding:0 3px;
+}
+
+.icon-label{
+    display: inline;
+    visibility:hidden;
+    opacity:0;
+    transition: visibility 0s linear 300ms, opacity 500ms;
+}
+
+.new-icon{
+    font-size: 25px;
+}
+
+.new-icon:hover ~ .icon-label{
+    visibility: visible;
+    opacity:1;
+    transition: visibility 0s linear 0s, opacity 500ms;
+}
+
+.search-icon{
+    font-size: 22px;
+    margin-left: 10px;
 }
 
 .delete{
@@ -164,6 +189,18 @@ footer{
 
 .border-red{
     border-color: red;
+}
+
+.round {
+    border-radius: 100%;
+    overflow: hidden;
+    height: 100px;
+    width:100px;
+    background: black;
+}
+
+img {
+    width: 100%;
 }
 
 

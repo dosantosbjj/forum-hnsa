@@ -17,7 +17,7 @@
           <h5 class="card-title">Dados do usuário:</h5>
         </div>
         <div class="avatar">
-            <i class="fas fa-user-circle"></i>
+            <img src="{{ url("storage/users/".$user->user_image) }}" class="round" alt="Imagem do usuário">
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item"></li>

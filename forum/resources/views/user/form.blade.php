@@ -11,19 +11,7 @@
 @section('content')
 
 {{-- Erros em sessão --}}
-@if(session()->has('confirmation-fail'))
-    <div class="alert alert-danger" role="alert">
-        {{ session('confirmation-fail') }}
-    </div>
-@elseif(session()->has('upload-error'))
-    <div class="alert alert-danger">
-        {{ session('upload-error')}}
-    </div>
-@elseif(session()->has('user-error'))
-    <div class="alert alert-danger" role="alert">
-        {{ session('user-error') }}
-    </div>
-@endif
+@include('partials.errors')
 
 <div class="container"> 
     <h3 class="top-label">
@@ -35,7 +23,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="name"><b>Name:</b></label>
-            <input type="text" class="form-control" name="title">            
+            <input type="text" class="form-control" name="name">            
         </div>
         <div class="form-group col-md-6">
             <label for="email"><b>Email:</b></label>

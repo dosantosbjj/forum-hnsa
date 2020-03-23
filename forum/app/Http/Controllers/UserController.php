@@ -47,9 +47,10 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->type_id = $request->type_id;
         $user->section_id = $request->section_id;
+        $user->created_at = now();
 
         // Validação de senha será feita no front-end com javascript
-        $user->password = $request->password;         
+        $user->password = Hash::make($request->password);         
     
         // Regra para validação e upload da imagem em public/users
         if($request->hasFile('user_image')){

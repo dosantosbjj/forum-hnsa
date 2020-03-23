@@ -16,11 +16,7 @@
 
 @section('content')
 <div class="container">
-    @if(session()->has('comment-success'))
-        <div class="alert alert-success" role="alert">
-            Comentário cadastrado com sucesso!
-        </div>
-    @endif
+    @include('partials.validations')
     <article>
         <h2 class="top-label">
             {{$post->title}}

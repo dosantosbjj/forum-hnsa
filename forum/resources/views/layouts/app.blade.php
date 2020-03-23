@@ -17,9 +17,9 @@
     </script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"> 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-    
     <script src="{{ asset('js/app.js') }}"></script>    
-    <script src="https://kit.fontawesome.com/e952f0ab86.js" crossorigin="anonymous"></script>.<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/e952f0ab86.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     
    <script>
     // Inicialização do datatables
@@ -33,19 +33,16 @@
     @yield('styles')
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    
-   
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> 
     
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">    
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background:#23b5c2">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background:#F4EDE6">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Fórum HNSA
@@ -66,7 +63,10 @@
                                     <a href="{{route('user.index')}}" class="nav-link"> 
                                         Users
                                     </a>
-                                </li>  
+                                </li> 
+                                <li class="nav-item">
+                                    <input type="text" name="search" id="search_text" onchange="searchPosts()" class="form-control col-sm-4" placeholder="Search posts...">
+                                </li> 
                             </ul>
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item dropdown">
@@ -92,8 +92,10 @@
                                     <a href="{{route('post.index')}}" class="nav-link"> 
                                         Posts
                                     </a>
-                                </li>                        
+                                </li>                                                      
                             </ul>
+                                <input type="text" name="search" id="search_text" onchange="searchPosts()" class="form-control col-sm-4 search" placeholder="Search posts...">
+                                <i class="fas fa-search search-icon"></i>
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

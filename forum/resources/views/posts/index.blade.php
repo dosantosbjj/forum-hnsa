@@ -14,46 +14,18 @@
 @section('content')
 <div class="container">
 
-{{-- Mensagens de validação --}}
-@if(session()->has('post-success'))
-    <div class="alert alert-success sm" role="alert">
-        Post criado com sucesso!
-    </div>
-@endif
-@if(session()->has('delete-success'))
-    <div class="alert alert-success sm" role="alert">
-        Post deletado com sucesso!
-    </div>
-@elseif(session()->has('unauthorized'))
-    <div class="alert alert-fail sm" role="alert">
-        Seu usuário não é autorizado...
-    </div>
-@endif
-@if(session()->has('edit-success'))
-    <div class="alert alert-success sm" role="alert">
-        Post editado com sucesso!
-    </div>
-@endif
-@if(session()->has('edit-error'))
-    <div class="alert alert-fail sm" role="alert">
-        Post editado com sucesso!
-    </div>
-@endif
+@include('partials.validations')
 
 <div class="topo">
-    <button type="button" class="btn btn-primary btn-success">
-        <a href="{{route('post.create')}}">
-            <i class="far fa-plus-square"></i>
-            <strong>Novo Post</strong>
-        </a>
-    </button>
-    <input type="text" name="search" id="search_text" onchange="searchPosts()" class="form-control col-sm-4" placeholder="Search posts..."> 
-    
+    <a href="{{route('post.create')}}">
+        <i class="far fa-plus-square new-icon">
+        </i>
+        <h3 class="icon-label">Criar postagem</h3>        
+    </a>    
     <a id="feed" onclick="updateFeed()">Atualizar FEED
         <i class="fas fa-sync-alt"></i>
     </a>     
 </div>
-<br>
 <div>
     <h2 class="top-label">Posts</h2>
 </div>
@@ -81,8 +53,8 @@
                 @endphp
                 <span class="topo">
                     <i>{{ $user->name }}</i> 
-                    <strong> em 
-                      {{    $post->post_date->format('d/m/Y')    }} às {{ $post->post_date->format('H:i:s') }}
+                    <strong>
+                      {{    $post->post_date->diffForHumans()    }}
                     </strong>        
                 </span>          
             </h6>
