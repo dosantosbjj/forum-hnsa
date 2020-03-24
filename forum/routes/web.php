@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\CheckUser;
+
 Auth::routes();
 
 Route::get('/', function () {
@@ -8,5 +10,8 @@ Route::get('/', function () {
 
 Route::resource('post', 'PostController');
 Route::resource('comments','CommentsController');
-Route::resource('user','UserController');
+Route::group(['middleware' => CheckUser::class], function() {
+    Route::resource('user','UserController');
+});
+
 

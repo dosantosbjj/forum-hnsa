@@ -28,3 +28,9 @@
         {{ session('user-error') }}
     </div>
 @endif
+
+@if(session()->has('route-forbidden'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('route-forbidden')}}
+    </div>
+@endif

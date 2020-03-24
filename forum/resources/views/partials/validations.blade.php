@@ -24,7 +24,12 @@
     </div>
 @endif
 @if(session()->has('comment-success'))
-        <div class="alert alert-success" role="alert">
-            Comentário cadastrado com sucesso!
-        </div>
-    @endif
+    <div class="alert alert-success" role="alert">
+        Comentário cadastrado com sucesso!
+    </div>
+@endif
+@if(session()->has('route-forbidden'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('route-forbidden')}}
+    </div>
+@endif
